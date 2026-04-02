@@ -9,6 +9,7 @@ export default function Canvas() {
   const {
     selectedRatios,
     showRuler,
+    showIcon,
     text,
     icon,
     background,
@@ -81,9 +82,20 @@ export default function Canvas() {
               WebkitBackdropFilter: icon.bgBlur > 0 ? `blur(${icon.bgBlur}px)` : 'none',
               padding: icon.bgShape !== 'none' ? `${icon.padding}px` : 0,
               borderRadius: icon.bgShape === 'circle' ? '50%' : icon.bgShape === 'rounded-square' ? `${icon.radius}px` : icon.bgShape === 'square' ? '0' : '0',
+              ...(icon.containerSize > 0 ? { width: `${icon.containerSize}px`, height: `${icon.containerSize}px` } : {}),
           }}
       >
-          {icon.customIconUrl ? (
+          {icon.customSvgCode ? (
+              <div
+                  className="flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"
+                  style={{
+                      width: `${icon.size}px`,
+                      height: `${icon.size}px`,
+                      color: icon.color,
+                  }}
+                  dangerouslySetInnerHTML={{ __html: icon.customSvgCode }}
+              />
+          ) : icon.customIconUrl ? (
               <img 
                   src={icon.customIconUrl} 
                   alt="Custom Icon" 
@@ -111,6 +123,7 @@ export default function Canvas() {
               color: text.color,
               fontWeight: text.fontWeight,
               fontFamily: text.font,
+              fontStyle: text.fontStyle,
               WebkitTextStroke: text.strokeWidth > 0 ? `${text.strokeWidth}px ${text.strokeColor}` : undefined,
           }}
       >
@@ -142,7 +155,8 @@ export default function Canvas() {
                       renderText(text.content, text.x, text.y)
                   )}
               </div>
-              <div 
+              {showIcon && (
+              <div
                   className="z-20 absolute"
                   style={{
                       transform: `translate(${icon.x}px, ${icon.y}px)`
@@ -150,6 +164,7 @@ export default function Canvas() {
               >
                   {renderIcon()}
               </div>
+              )}
           </div>
       );
   };
@@ -176,7 +191,7 @@ export default function Canvas() {
         >
             {/* Background Layer */}
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 canvas-bg-layer"
               style={{
                 backgroundColor: background.type === 'solid' ? background.color : '#ffffff',
                 borderRadius: `${background.radius}px`,
@@ -199,7 +214,7 @@ export default function Canvas() {
             {/* Inner Shadow Layer */}
             {background.shadow && (
                 <div 
-                    className="absolute inset-0 pointer-events-none z-0"
+                    className="absolute inset-0 pointer-events-none z-0 canvas-bg-layer"
                     style={{
                         boxShadow: `inset 0 ${background.shadowOffsetY}px ${background.shadowBlur}px ${background.shadowColor}`,
                     }}

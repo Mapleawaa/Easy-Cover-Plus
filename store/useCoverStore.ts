@@ -22,6 +22,7 @@ interface TextSettings {
   rotation: number;
   // Font settings
   font: string;
+  fontStyle: 'normal' | 'italic';
   // Split settings
   isSplit: boolean;
   leftOffsetX: number;
@@ -32,7 +33,8 @@ interface TextSettings {
 
 interface IconSettings {
   name: string; // identifier for the icon
-  size: number;
+  size: number; // inner icon size
+  containerSize: number; // outer frame size (0 = auto, determined by padding + icon size)
   color: string; // useful if we allow tinting, even for colored icons
   shadow: boolean;
   x: number;
@@ -52,6 +54,8 @@ interface IconSettings {
   // Custom image icon
   customIconUrl?: string;
   customIconRadius: number; // For custom image icon radius
+  // Custom SVG icon
+  customSvgCode?: string;
 }
 
 interface BackgroundSettings {
@@ -75,6 +79,8 @@ interface BackgroundSettings {
 interface CoverState {
   selectedRatios: AspectRatio[];
   showRuler: boolean;
+  showIcon: boolean;
+  exportTransparent: boolean;
   text: TextSettings;
   icon: IconSettings;
   background: BackgroundSettings;
@@ -82,14 +88,19 @@ interface CoverState {
   // Actions
   toggleRatio: (ratio: AspectRatio) => void;
   setShowRuler: (show: boolean) => void;
+  setShowIcon: (show: boolean) => void;
+  setExportTransparent: (transparent: boolean) => void;
   updateText: (settings: Partial<TextSettings>) => void;
   updateIcon: (settings: Partial<IconSettings>) => void;
   updateBackground: (settings: Partial<BackgroundSettings>) => void;
+  applyPreset: (preset: Partial<{ selectedRatios: AspectRatio[]; showIcon: boolean; showRuler: boolean; exportTransparent: boolean; text: Partial<TextSettings>; icon: Partial<IconSettings>; background: Partial<BackgroundSettings> }>) => void;
 }
 
 export const useCoverStore = create<CoverState>((set) => ({
   selectedRatios: ['16:9'],
   showRuler: true,
+  showIcon: true,
+  exportTransparent: false,
   text: {
     content: '封面标题',
     fontSize: 160,
@@ -101,6 +112,7 @@ export const useCoverStore = create<CoverState>((set) => ({
     y: 0,
     rotation: 0,
     font: 'Inter, sans-serif',
+    fontStyle: 'normal',
     isSplit: false,
     leftOffsetX: 0,
     leftOffsetY: 0,
@@ -110,6 +122,7 @@ export const useCoverStore = create<CoverState>((set) => ({
   icon: {
     name: 'logos:react',
     size: 120,
+    containerSize: 0,
     color: '#000000',
     shadow: true,
     x: 0,
@@ -154,10 +167,22 @@ export const useCoverStore = create<CoverState>((set) => ({
       };
     }),
   setShowRuler: (show) => set({ showRuler: show }),
+  setShowIcon: (show) => set({ showIcon: show }),
+  setExportTransparent: (transparent) => set({ exportTransparent: transparent }),
   updateText: (settings) =>
     set((state) => ({ text: { ...state.text, ...settings } })),
   updateIcon: (settings) =>
     set((state) => ({ icon: { ...state.icon, ...settings } })),
   updateBackground: (settings) =>
     set((state) => ({ background: { ...state.background, ...settings } })),
+  applyPreset: (preset) =>
+    set((state) => ({
+      ...(preset.selectedRatios ? { selectedRatios: preset.selectedRatios } : {}),
+      ...(preset.showIcon !== undefined ? { showIcon: preset.showIcon } : {}),
+      ...(preset.showRuler !== undefined ? { showRuler: preset.showRuler } : {}),
+      ...(preset.exportTransparent !== undefined ? { exportTransparent: preset.exportTransparent } : {}),
+      ...(preset.text ? { text: { ...state.text, ...preset.text } } : {}),
+      ...(preset.icon ? { icon: { ...state.icon, ...preset.icon } } : {}),
+      ...(preset.background ? { background: { ...state.background, ...preset.background } } : {}),
+    })),
 }));

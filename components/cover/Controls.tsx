@@ -16,7 +16,7 @@ import { IconPicker } from '@/components/cover/IconPicker';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Download, RotateCcw, Maximize, Github, ExternalLink, Upload, Sun, Moon, Monitor, ChevronRight, Palette, Type, Image, Move, Layers, Sparkles, FileText, Square, Zap, Rainbow, Gem } from 'lucide-react';
+import { Download, RotateCcw, Maximize, Github, ExternalLink, Upload, Sun, Moon, Monitor, ChevronRight, Palette, Type, Move, Layers, Sparkles, FileText, Square, Zap, Rainbow, Gem } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { useSettingsStore, Theme } from '@/store/useSettingsStore';
 
@@ -216,7 +216,6 @@ function ThemeToggle() {
 
 // ─── Export ──────────────────────────────────────────────────────
 export function useExport() {
-  const store = useCoverStore();
   return useCallback(async (transparent: boolean, scale: number, format: 'png' | 'svg') => {
     const node = document.getElementById('canvas-export-target');
     if (!node) return;
@@ -249,7 +248,6 @@ export function useExport() {
 function ExportDialog({ open, onOpenChange, onExport }: {
   open: boolean; onOpenChange: (v: boolean) => void; onExport: (transparent: boolean, scale: number, format: 'png' | 'svg') => Promise<void>;
 }) {
-  const store = useCoverStore();
   const [transparent, setTransparent] = useState(false);
   const [scale, setScale] = useState(2);
   const [format, setFormat] = useState<'png' | 'svg'>('png');
@@ -451,7 +449,7 @@ export default function Panel() {
       if (activeRatios.length > 0 && store.background.imageUrl) {
         const maxW = Math.max(...activeRatios.map(r => r.width));
         const maxH = Math.max(...activeRatios.map(r => r.height));
-        const img = new Image(0, 0); img.src = store.background.imageUrl;
+        const img = document.createElement('img'); img.src = store.background.imageUrl;
         img.onload = () => {
           const imgRatio = img.naturalWidth / img.naturalHeight;
           const canvasRatio = maxW / maxH;

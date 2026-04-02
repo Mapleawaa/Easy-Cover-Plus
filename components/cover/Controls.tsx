@@ -451,7 +451,7 @@ export default function Panel() {
       if (activeRatios.length > 0 && store.background.imageUrl) {
         const maxW = Math.max(...activeRatios.map(r => r.width));
         const maxH = Math.max(...activeRatios.map(r => r.height));
-        const img = new Image(); img.src = store.background.imageUrl;
+        const img = new Image(0, 0); img.src = store.background.imageUrl;
         img.onload = () => {
           const imgRatio = img.naturalWidth / img.naturalHeight;
           const canvasRatio = maxW / maxH;

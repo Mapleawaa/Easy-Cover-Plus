@@ -746,17 +746,22 @@ export default function Panel() {
 
         {/* ═══════ 5. 关于 ═══════ */}
         <Section icon={Sparkles} title="关于" defaultOpen={false}>
-          <div className="space-y-2 text-xs">
-            <a href="https://github.com/afoim/easy_cover" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1.5">
-              <Github className="w-3.5 h-3.5" />afoim/easy_cover (原作)
-            </a>
-            <a href="https://github.com/mapleawaa/easy_cover" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1.5">
-              <Github className="w-3.5 h-3.5" />mapleawaa/easy_cover (Fork)
-            </a>
-            <div className="flex items-center gap-1.5 text-muted-foreground pt-1">
-              <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              Licensed under AGPL-3.0
+          <div className="space-y-3">
+            <div className="space-y-2 text-xs">
+              <a href="https://github.com/afoim/easy_cover" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1.5">
+                <Github className="w-3.5 h-3.5" />afoim/easy_cover (原作)
+              </a>
+              <a href="https://github.com/mapleawaa/easy_cover" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1.5">
+                <Github className="w-3.5 h-3.5" />mapleawaa/easy_cover (Fork)
+              </a>
+              <div className="flex items-center gap-1.5 text-muted-foreground pt-1">
+                <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                Licensed under AGPL-3.0
+              </div>
             </div>
+            <a href="https://edgeone.ai" target="_blank" rel="noopener noreferrer" className="flex justify-center pt-2">
+              <img src="/edgeone.png" alt="Deploy on EdgeOne" className="h-auto w-1/2 max-w-[140px] hover:opacity-80 transition-opacity" />
+            </a>
           </div>
         </Section>
 

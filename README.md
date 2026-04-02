@@ -1,8 +1,10 @@
-# EasyCover - AcoFork
+# EasyCover Plus
 
-<img width="1893" height="1390" alt="a7db63bb841d2b78d604e2662c50365c" src="https://github.com/user-attachments/assets/e8379b3a-2806-4069-ab47-9a7487c1dd82" />
+<img width="1893" height="1390" alt="a7db63bb841d2b78d604e2662c50365c" src="./UI.png" />
 
-简单、优雅的封面图生成工具。纯客户端运行，保护您的隐私。
+简单、优雅的封面图生成工具。
+
+在线体验：[中国大陆访问](https://cover.oowo.cc) | [国际通用访问](https://mapleawaa.github.io/easy-cover-plus)
 
 ## ✨ 特性
 
@@ -86,4 +88,4 @@ npm run dev
 
 ---
 
-Made with ❤️ by AcoFork
+Made with ❤️ by [AcoFork](https://github.com/afoim) and [CyreneNight](https://github.com/Mapleawaa)

@@ -221,8 +221,9 @@ export function useExport() {
     const node = document.getElementById('canvas-export-target');
     if (!node) return;
     const filter = (n: Node) => {
-      if (n.classList?.contains('export-exclude')) return false;
-      if (transparent && n.classList?.contains('canvas-bg-layer')) return false;
+      const el = n as Element;
+      if (el.classList?.contains('export-exclude')) return false;
+      if (transparent && el.classList?.contains('canvas-bg-layer')) return false;
       return true;
     };
     try {
